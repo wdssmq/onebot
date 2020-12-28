@@ -25,7 +25,7 @@ try {
 } catch (e) {
     console.log(`"npm up --no-save"执行失败，你可能需要手动执行。`);
 }
-
+const global_config = require("./config");
 require("oicq");
 const data_dir = path.join(process.mainModule.path, "data");
 try {
@@ -40,6 +40,10 @@ try {
 }
 
 let account = parseInt(process.argv[2]);
+// console.log(typeof account);
+if (Number.isNaN(account) && global_config.autoLogin) {
+    account = global_config.autoLogin.account;
+}
 inputAccount();
 
 function inputAccount() {

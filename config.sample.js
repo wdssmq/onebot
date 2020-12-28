@@ -2,41 +2,45 @@
 // 将此文件更名为config.js才能生效哦
 
 module.exports = {
-
     //通用配置
     general: {
-        platform:           1,      //1安卓手机 2aPad 3安卓手表 4MacOS(实验) 5iPad(实验)
-        ignore_self:        true,   //群聊和私聊是否无视自己的发言
-        resend:             true,   //被风控的消息是否尝试以分片再次发送（分片是一种古老的消息）
-        debug:              false,  //开启debug
-        use_cqhttp_notice:  false,  //是否使用cqhttp标准的notice事件格式
+        platform: 1, //1安卓手机 2aPad 3安卓手表 4MacOS(实验) 5iPad(实验)
+        ignore_self: true, //群聊和私聊是否无视自己的发言
+        resend: true, //被风控的消息是否尝试以分片再次发送（分片是一种古老的消息）
+        debug: false, //开启debug
+        use_cqhttp_notice: false, //是否使用cqhttp标准的notice事件格式
 
-        host:               "0.0.0.0",  //监听主机名
-        port:               5700,       //端口
-        use_http:           false,      //启用http
-        use_ws:             false,      //启用正向ws，和http使用相同地址和端口
-        access_token:       "",         //访问api的token
-        secret:             "",         //上报数据的sha1签名密钥
-        post_timeout:       30,         //post超时时间(秒)
-        post_message_format:"string",   //string或array
-        enable_cors:        false,      //是否允许跨域请求
-        enable_heartbeat:   false,      //是否启用ws心跳
-        heartbeat_interval: 15000,      //ws心跳间隔(毫秒)
-        rate_limit_interval:500,        //使用_rate_limited后缀限速调用api的排队间隔时间(毫秒)
-        event_filter:       "",         //json格式的事件过滤器文件路径
-        post_url: [ //上报地址，可以添加多个url
+        host: "0.0.0.0", //监听主机名
+        port: 5700, //端口
+        use_http: false, //启用http
+        use_ws: false, //启用正向ws，和http使用相同地址和端口
+        access_token: "", //访问api的token
+        secret: "", //上报数据的sha1签名密钥
+        post_timeout: 30, //post超时时间(秒)
+        post_message_format: "string", //string或array
+        enable_cors: false, //是否允许跨域请求
+        enable_heartbeat: false, //是否启用ws心跳
+        heartbeat_interval: 15000, //ws心跳间隔(毫秒)
+        rate_limit_interval: 500, //使用_rate_limited后缀限速调用api的排队间隔时间(毫秒)
+        event_filter: "", //json格式的事件过滤器文件路径
+        post_url: [
+            //上报地址，可以添加多个url
             // "http://your.address.com:80",
         ],
-        ws_reverse_url: [ //反向ws地址，可以添加多个url(暂不支持将api和event分两个通道)
+        ws_reverse_url: [
+            //反向ws地址，可以添加多个url(暂不支持将api和event分两个通道)
             // "ws://your.address.com:8080",
         ],
         ws_reverse_reconnect_interval: 3000, //反向ws断线重连间隔(毫秒)
     },
 
     //每个账号的单独配置(用于覆盖通用配置)
-    123456789: {
+    123456789: {},
 
-    },
+    //自动登录
+    // autoLogin: {
+    //     account: 123456789,
+    // },
 };
 
 // 如果需要更详细的日志，可以在添加配置项 log_level: "trace",
