@@ -10,40 +10,35 @@ const fs = require("fs");
 try {
     require("./config.js");
 } catch (e) {
-    console.log(e.message);
+    console.log(e);
     console.log(`
-- config.js不存在，请重命名 config.sample.js 或执行以下命令：
-cp config.sample.js config.js
-node main
--`);
+未找到config.js文件或配置有语法错误
+`);
     process.exit(0);
 }
 
-// try {
-//     console.log(`正在检查&更新内核版本..`);
-//     require("child_process").execSync("npm up --no-save", { stdio: "ignore" });
-// } catch (e) {
-//     console.log(`"npm up --no-save"执行失败，你可能需要手动执行。`);
-// }
-const global_config = require("./config");
+try {
+    console.log(`正在检查&更新内核版本..`);
+    require("child_process").execSync("npm up --no-save", {stdio: "ignore"});
+} catch (e) {
+    console.log(`"npm up --no-save"执行失败，你可能需要手动执行。`);
+}
+
 require("oicq");
 const data_dir = path.join(process.mainModule.path, "data");
 try {
-    if (!fs.existsSync(data_dir)) fs.mkdirSync(data_dir, { mode: 0o755 });
+    if (!fs.existsSync(data_dir))
+        fs.mkdirSync(data_dir, {mode: 0o755});
     const testfile = path.join(data_dir, "test");
     fs.writeFileSync(testfile, "");
     fs.unlinkSync(testfile);
-} catch (e) {
+} catch(e) {
+    console.log(e);
     console.log("数据文件夹不可写，进程退出。");
-    console.log(e.message);
     process.exit(0);
 }
 
 let account = parseInt(process.argv[2]);
-// console.log(typeof account);
-if (Number.isNaN(account) && global_config.autoLogin) {
-    account = global_config.autoLogin.account;
-}
 inputAccount();
 
 function inputAccount() {
@@ -52,7 +47,7 @@ function inputAccount() {
         return require("./lib/core")(account);
     }
     console.log("请输入账号：");
-    process.stdin.once("data", (input) => {
+    process.stdin.once("data", (input)=>{
         account = parseInt(input.toString().trim());
         inputAccount();
     });
